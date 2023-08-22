@@ -5,14 +5,12 @@ const SCREEN_WIDTH: i32 = 80;
 const SCREEN_HEIGHT: i32 = 50;
 const FRAME_DURATION: f32 = 20.0;
 
-//This enum represents the different "modes" the game can be in
 enum GameMode {
     Menu,
     Playing,
     End,
 }
 
-//This struct represents the player
 struct Player {
     x: i32,
     y: i32,
@@ -23,6 +21,21 @@ struct Obstacle {
     x: i32,
     gap_y: i32,
     size: i32,
+}
+
+//Everytning that needs to be preserved between ticks is in this state.
+//The state is a snapshot of the current game world.
+struct State {
+    //Tracks all of the state for the player
+    player: Player,
+    //Tracks the time since last frame, used to control the game speed
+    frame_time: f32,
+    //Tracks the current obstacle
+    obstacle: Obstacle,
+    //Tracks the current mode
+    mode: GameMode,
+    //Tracks the player score
+    score: i32,
 }
 
 impl Obstacle {
@@ -105,21 +118,6 @@ impl Player {
         //Zero is at the top of the screen
         self.velocity = -2.0;
     }
-}
-
-//Everytning that needs to be preserved between ticks is in this state.
-//The state is a snapshot of the current game world.
-struct State {
-    //Tracks all of the state for the player
-    player: Player,
-    //Tracks the time since last frame, used to control the game speed
-    frame_time: f32,
-    //Tracks the current obstacle
-    obstacle: Obstacle,
-    //Tracks the current mode
-    mode: GameMode,
-    //Tracks the player score
-    score: i32,
 }
 
 impl State {
