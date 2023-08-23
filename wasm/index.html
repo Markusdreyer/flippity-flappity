@@ -6,6 +6,9 @@
     <canvas id="canvas" width="640" height="480"></canvas>
     <script src="./flippity-flappity.js"></script>
     <script>
+      const canvas = document.getElementById('canvas');
+      addEventListener("touchstart",
+        () => canvas.dispatchEvent(new Event('mousedown')), true);
       window.addEventListener("load", async () => {
         await wasm_bindgen("./flippity-flappity_bg.wasm");
       });
