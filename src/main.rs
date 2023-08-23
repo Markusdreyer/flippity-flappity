@@ -99,7 +99,13 @@ impl Player {
         //Check for terminal velocity
         //Only apply velocity up to a certain point
         if self.velocity < 2.0 {
-            self.velocity += 0.2;
+            self.velocity += 0.15;
+
+            //Cut floaty curve where player "hangs" in the air. Start falling
+            //when velocity upwards is small.
+            if self.velocity > -0.75 && self.velocity < 0.75 {
+                self.velocity = 0.75
+            }
         }
 
         //Apply velocity to position
@@ -116,7 +122,7 @@ impl Player {
     fn flap(&mut self) {
         //Confusing that we are subtracting from velocity to go up
         //Zero is at the top of the screen
-        self.velocity = -2.0;
+        self.velocity = -3.0;
     }
 }
 
