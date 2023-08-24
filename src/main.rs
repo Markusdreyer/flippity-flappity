@@ -138,6 +138,9 @@ impl State {
         ctx.print_centered(8, "(P) Play Game");
         ctx.print_centered(9, "(Q) Quit Game");
 
+        if ctx.left_click {
+            self.restart()
+        }
         if let Some(key) = ctx.key {
             match key {
                 VirtualKeyCode::P => self.restart(),
@@ -160,8 +163,8 @@ impl State {
             self.player.gravity_and_move();
         }
 
-        //If the player hits space, flap
-        if let Some(VirtualKeyCode::Space) = ctx.key {
+        //If the player hits space or clicks, flap
+        if ctx.key == Some(VirtualKeyCode::Space) || ctx.left_click {
             self.player.flap();
         }
 
